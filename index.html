@@ -35,7 +35,9 @@
       background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-      overflow: hidden;
+      overflow-x: hidden; /* empêche un scroll horizontal parasite */
+  overflow-y: auto;   /* autorise le défilement vertical */
+  -webkit-overflow-scrolling: touch; /* fluidité sur iOS */
     }
 
     /* ✅ BARRE DE NAVIGATION */
@@ -885,6 +887,27 @@
   </script>
 </body>
 </html>
+<script>
+let startX = 0;
+
+document.querySelector(".slides-wrapper").addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+document.querySelector(".slides-wrapper").addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const diffX = startX - endX;
+
+  if (Math.abs(diffX) > 60) { // seuil du swipe
+    if (diffX > 0) {
+      goToSlide(current + 1, 1); // swipe gauche → slide suivante
+    } else {
+      goToSlide(current - 1, -1); // swipe droite → slide précédente
+    }
+  }
+});
+</script>
+
 
 
 

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Impact de l’IA Générative sur les métiers IT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #020617;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59,130,246,0.2);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148,163,184,0.4);
+      --radius: 26px;
+      --shadow: 0 22px 50px rgba(15,23,42,0.95);
+      --transition: 0.35s cubic-bezier(0.19,1,0.22,1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
+      overflow: hidden;
+    }
+    .app { height: 100vh; display: flex; flex-direction: column; padding: 16px; }
+    header { display: flex; flex-direction: column; align-items: flex-start; padding: 6px 4px 12px; }
+    .brand .badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 11px; color: var(--muted);
+      background: rgba(15,23,42,0.98);
+    }
+    .title-main { font-size: 16px; font-weight: 600; margin-top: 6px; }
+
+    /* Slides */
+    .slides-wrapper {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .slide {
+      position: absolute; inset: 0; margin: auto;
+      max-width: 1040px; max-height: 520px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(31,41,55,0.95);
+      background: radial-gradient(circle at top left, rgba(37,99,235,0.15), transparent 50%), radial-gradient(circle at bottom right, #020617, #020617);
+      box-shadow: var(--shadow);
+      padding: 36px 36px;
+      display: grid; grid-template-columns: 1fr; gap: 24px;
+      opacity: 0; transform: translateX(40px) scale(0.98);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .slide.active { opacity: 1; transform: translateX(0) scale(1); }
+    .slide-title { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+    .slide-main-text { font-size: 15px; margin-bottom: 12px; color: var(--text); }
+    .bullet-list { list-style: none; font-size: 14px; color: var(--text); }
+    .bullet-list li { margin-bottom: 6px; display: flex; gap: 8px; }
+    .bullet-dot { margin-top: 5px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .slide-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .box {
+      border-radius: 18px; border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.96); padding: 14px 16px; margin-top: 12px;
+    }
+    .box-title { font-size: 13px; font-weight: 600; color: #dbeafe; margin-bottom: 6px; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .pill {
+      font-size: 11px; padding: 4px 8px;
+      border-radius: 999px; border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.9); color: var(--muted);
+    }
+    .pill--accent { background: var(--accent-soft); border-color: rgba(59,130,246,0.8); color: #dbeafe; }
+    .footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .btn {
+      border-radius: 999px; border: 1px solid rgba(148,163,184,0.6);
+      padding: 8px 14px; background: rgba(15,23,42,0.96);
+      color: var(--text); cursor: pointer; font-size: 13px;
+    }
+    .btn:hover { background: rgba(30,64,175,0.7); }
+    .dots { display: flex; gap: 6px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(148,163,184,0.9); opacity: 0.5; }
+    .dot.active { background: var(--accent); opacity: 1; }
+    @media(max-width:880px){.slide{padding:24px 18px;height:calc(100vh - 120px);}}
+  </style>
+</head>
+<body>
+<nav style="background:#111827;padding:10px;border-bottom:1px solid #1f2937;">
+  <a href="index.html" style="color:#3b82f6;text-decoration:none;margin-right:20px;">🏠 Accueil</a>
+  <a href="agents.html" style="color:#e5e7eb;text-decoration:none;">🤖 Agents IA</a>
+</nav>
+
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="badge">Projet tutoré · Séance 3</div>
+        <div class="title-main">Impact de l’IA Générative sur l’évolution des métiers IT</div>
+      </div>
+    </header>
+
+    <div class="slides-wrapper">
+
+      <!-- SLIDE 0 INTRO -->
+      <section class="slide active" data-index="0">
+        <div>
+          <div class="slide-title">Introduction</div>
+          <p class="slide-main-text">
+            L’<strong>IA Générative</strong> ne se contente plus d’automatiser : elle propose, corrige, et crée. 
+            Cette transformation questionne profondément la <strong>place de l’humain</strong> dans les métiers IT.
+          </p>
+          <div class="box">
+            <div class="box-title">Problématique</div>
+            <p>
+              Comment les organisations peuvent-elles intégrer l’IAG sans perte de compétences, 
+              ni dépendance technologique, tout en garantissant la performance, la qualité et le bien-être au travail ?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 1 OBJET -->
+      <section class="slide" data-index="1">
+        <div>
+          <div class="slide-title">Objet de recherche</div>
+          <p class="slide-main-text">
+            La recherche vise à comprendre comment l’IAG <strong>reconfigure le travail</strong> des professionnels IT :
+          </p>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span>Évolution des tâches et responsabilités.</li>
+            <li><span class="bullet-dot"></span>Transformation des compétences techniques et cognitives.</li>
+            <li><span class="bullet-dot"></span>Conditions organisationnelles d’intégration efficace.</li>
+          </ul>
+          <p class="slide-note">But : renforcer la compétence humaine, pas la remplacer.</p>
+        </div>
+        <div class="box">
+          <div class="box-title">Méthodologie</div>
+          <p>Analyse documentaire, cas d’entreprise, entretiens professionnels.</p>
+          <div class="pill-row">
+            <span class="pill pill--accent">Développeurs</span>
+            <span class="pill">Data</span>
+            <span class="pill">DevOps</span>
+            <span class="pill">Formation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 MICRO -->
+      <section class="slide" data-index="2">
+        <div>
+          <div class="slide-title">Analyse micro : tâches & compétences</div>
+          <p class="slide-main-text">
+            L’IAG modifie le travail quotidien : elle génère du code, aide à diagnostiquer, mais impose une <strong>supervision critique</strong>.
+          </p>
+          <div class="box">
+            <div class="box-title">Exemples concrets</div>
+            <ul class="bullet-list">
+              <li><span class="bullet-dot"></span>GitHub Copilot : +55% de productivité sur tâches répétitives.</li>
+              <li><span class="bullet-dot"></span>Support client IA : 35% des tickets pré-triés automatiquement.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-title">Compétences clés</div>
+          <p>Prompt engineering, évaluation des biais, esprit critique, interprétation métier.</p>
+          <div class="pill-row">
+            <span class="pill pill--accent">Supervision</span>
+            <span class="pill">Audit</span>
+            <span class="pill">Éthique</span>
+            <span class="pill">Créativité</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3 TENSIONS -->
+      <section class="slide" data-index="3">
+        <div>
+          <div class="slide-title">Tensions économiques & stratégiques</div>
+          <p class="slide-main-text">
+            L’adoption rapide de l’IAG crée un décalage entre promesse et réalité économique.
+          </p>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span>Investissements massifs sans retour immédiat (Alternatives Économiques, 2024).</li>
+            <li><span class="bullet-dot"></span>Prévisions Forrester (2025) : possible correction de marché.</li>
+            <li><span class="bullet-dot"></span>Besoin d’évaluations continues et pragmatiques des usages.</li>
+          </ul>
+          <p class="slide-note">Éviter la “bulle IA” → adopter avec stratégie, pas par effet de mode.</p>
+        </div>
+      </section>
+
+      <!-- SLIDE 4 IMPLICATIONS -->
+      <section class="slide" data-index="4">
+        <div>
+          <div class="slide-title">Implications organisationnelles</div>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span>Former en continu : technique & esprit critique (LeMagIT, 2025).</li>
+            <li><span class="bullet-dot"></span>Gouvernance claire : sécurité, confidentialité, transparence.</li>
+            <li><span class="bullet-dot"></span>IA comme orthèse ou auxèse, pas prothèse (Shneiderman, 2020).</li>
+            <li><span class="bullet-dot"></span>Prévenir la déqualification & préserver la santé mentale.</li>
+          </ul>
+          <p class="slide-note">La culture IA doit être éthique, humaine et durable.</p>
+        </div>
+        <div class="box">
+          <div class="box-title">Priorités entreprises</div>
+          <div class="pill-row">
+            <span class="pill pill--accent">Formation</span>
+            <span class="pill">Sécurité</span>
+            <span class="pill">Transparence</span>
+            <span class="pill">Santé au travail</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5 MACRO -->
+      <section class="slide" data-index="5">
+        <div>
+          <div class="slide-title">Analyse macro : impacts globaux</div>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span>Innovation accrue, mais gains inégaux selon la maturité numérique (OCDE, 2025).</li>
+            <li><span class="bullet-dot"></span>AI Act : encadrement européen de l’éthique et la responsabilité.</li>
+            <li><span class="bullet-dot"></span>Risque de fracture entre profils experts et juniors.</li>
+            <li><span class="bullet-dot"></span>Possibilité d’une “bulle IA” → besoin d’équilibre et d’anticipation.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SLIDE 6 FUTUR -->
+      <section class="slide" data-index="6">
+        <div>
+          <div class="slide-title">Prochaines étapes de recherche</div>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span>Mobiliser les mots-clés : AI governance, AI skills, automation, collaboration.</li>
+            <li><span class="bullet-dot"></span>Étudier des cas concrets (banque, industrie, RH, data, SSII).</li>
+            <li><span class="bullet-dot"></span>Conduire 6–8 entretiens avec professionnels IT & DSI.</li>
+            <li><span class="bullet-dot"></span>Comparer les pratiques aux discours théoriques.</li>
+          </ul>
+          <p class="slide-note">But : proposer une <strong>feuille de route réaliste</strong> pour l’intégration durable de l’IAG.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-nav">
+      <button class="btn" id="prevBtn">← Précédent</button>
+      <div class="dots" id="dots"></div>
+      <button class="btn" id="nextBtn">Suivant →</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const dotsContainer = document.getElementById("dots");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    let current = 0;
+    slides.forEach((_, idx) => {
+      const d = document.createElement("div");
+      d.className = "dot" + (idx === 0 ? " active" : "");
+      d.dataset.index = idx;
+      dotsContainer.appendChild(d);
+    });
+    const dots = Array.from(document.querySelectorAll(".dot"));
+    function updateNavButtons() {
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+      dots.forEach((dot, idx) => dot.classList.toggle("active", idx === current));
+    }
+    function goToSlide(index) {
+      if (index < 0 || index >= slides.length || index === current) return;
+      slides[current].classList.remove("active");
+      current = index;
+      slides[current].classList.add("active");
+      updateNavButtons();
+    }
+    prevBtn.addEventListener("click", () => goToSlide(current - 1));
+    nextBtn.addEventListener("click", () => goToSlide(current + 1));
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") goToSlide(current + 1);
+      if (e.key === "ArrowLeft") goToSlide(current - 1);
+    });
+    dots.forEach(dot => dot.addEventListener("click", () => goToSlide(Number(dot.dataset.index))));
+    updateNavButtons();
+  </script>
+</body>
+</html>

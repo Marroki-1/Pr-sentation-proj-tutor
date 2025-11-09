@@ -24,6 +24,894 @@
       color: var(--text);
       overflow: hidden;
     }
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agents IA & Data Science – Présentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --card: #020617;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --accent-strong: rgba(59, 130, 246, 0.5);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.4);
+      --radius: 28px;
+      --shadow: 0 22px 50px rgba(15, 23, 42, 0.95);
+      --transition: 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    /* ✅ BARRE DE NAVIGATION */
+    nav {
+      background: rgba(2, 6, 23, 0.98);
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.25s ease;
+    }
+
+    nav a:hover {
+      color: #3b82f6;
+    }
+
+
+    .app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 4px 10px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ecfeff, #22c55e);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .title-small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .title-main {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-help {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .nav-help span {
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      margin-left: 4px;
+    }
+
+    /* SLIDES WRAPPER */
+
+    .slides-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      max-width: 1040px;
+      max-height: 520px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      background: radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.2),
+          transparent 55%
+        ),
+        radial-gradient(circle at bottom right, #020617, #020617);
+      box-shadow: var(--shadow);
+      padding: 26px 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 24px;
+      opacity: 0;
+      transform: translateX(40px) scale(0.98);
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    @media (max-width: 880px) {
+      .slide {
+        grid-template-columns: 1fr;
+        max-height: none;
+        height: calc(100vh - 110px);
+        padding: 20px 18px;
+      }
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .slide-exit-left {
+      opacity: 0;
+      transform: translateX(-40px) scale(0.98);
+    }
+
+    .slide-left {
+      transform: translateX(-40px) scale(0.98);
+    }
+
+    .slide-right {
+      transform: translateX(40px) scale(0.98);
+    }
+
+    /* SLIDE CONTENT */
+
+    .slide-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .slide-title {
+      font-size: 26px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .slide-icon {
+      font-size: 28px;
+    }
+
+    .slide-main-text {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .bullet-list {
+      margin-top: 4px;
+      list-style: none;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .bullet-list li {
+      margin-bottom: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .bullet-dot {
+      margin-top: 3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .slide-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* RIGHT SIDE VISUAL */
+
+    .slide-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .pill--accent {
+      border-color: rgba(59, 130, 246, 0.9);
+      background: var(--accent-soft);
+      color: #dbeafe;
+    }
+
+    .box {
+      border-radius: 18px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .box-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .mini-card {
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.2), #020617);
+      padding: 8px 8px 7px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .mini-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--muted);
+    }
+
+    .mini-main {
+      font-size: 12px;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .mini-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .metric {
+      font-size: 24px;
+      font-weight: 600;
+      color: #bfdbfe;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* FOOTER NAV */
+
+    .footer-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 6px 12px;
+      font-size: 13px;
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease-out, transform 0.15s ease-out,
+        border-color 0.2s ease-out;
+    }
+
+    .btn:hover {
+      background: rgba(30, 64, 175, 0.7);
+      border-color: rgba(129, 140, 248, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+      transform: none;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: transparent;
+      opacity: 0.5;
+    }
+
+    .dot.active {
+      background: var(--accent-strong);
+      border-color: rgba(191, 219, 254, 0.98);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Projet tutoré · Séance 3</span>
+        </div>
+        <div class="title-small">Thématique 2 · IA générative & métiers IT</div>
+        <div class="title-main">Agents IA & Data Science – Vue d’ensemble</div>
+      </div>
+      <div class="nav-help">
+        Navigation&nbsp;:
+        <span>←</span>
+        <span>→</span>
+        ou clic sur les boutons
+      </div>
+    </header>
+
+    <div class="slides-wrapper">
+      <!-- SLIDE 0 – TITRE -->
+      <section class="slide active" data-index="0">
+        <div>
+          <div class="slide-kicker">Introduction</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Agents IA&nbsp;: le “collègue virtuel” du data scientist
+          </div>
+          <p class="slide-main-text">
+            On parle d’<strong>agents IA</strong> quand on passe du simple chatbot
+            à un système qui peut <strong>comprendre un objectif</strong>,
+            <strong>planifier des étapes</strong>, exécuter du code, se corriger
+            et produire un résultat complet.
+          </p>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span>Un agent IA = un <strong>assistant autonome</strong> dans le workflow data.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>Il ne remplace pas (encore) le data scientist, il travaille <strong>à côté</strong>.</span>
+            </li>
+          </ul>
+          <p class="slide-note">
+            Idée clé&nbsp;: on est passé du “chatbot” à un
+            <strong>véritable acteur</strong> de la chaîne analytique.
+          </p>
+        </div>
+        <div class="slide-visual">
+          <div class="pill-row">
+            <span class="pill pill--accent">Agents IA</span>
+            <span class="pill">Autonomie</span>
+            <span class="pill">Workflows</span>
+            <span class="pill">Data Science</span>
+          </div>
+          <div class="box">
+            <div class="box-title">Rôle de l’agent IA</div>
+            <p>
+              Transformer une demande métier en une série de tâches techniques
+              (requêtes, scripts, visualisations, modèles) en gardant
+              l’humain comme superviseur.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 1 – ÉTAT DES LIEUX -->
+      <section class="slide" data-index="1">
+        <div>
+          <div class="slide-kicker">01</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Où on en est aujourd’hui&nbsp;?
+          </div>
+          <p class="slide-main-text">
+            Les agents IA sont déjà intégrés dans les <strong>grandes plateformes data</strong>.
+          </p>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                <strong>Databricks – Data Science Agent</strong> :
+                explore les données, génère du Python, corrige des bugs,
+                construit des modèles de A à Z.
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                <strong>Google Cloud – Data Science Agent</strong> :
+                branché à BigQuery, il automatise l’EDA et les prédictions via un simple prompt.
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                <strong>Microsoft – Analyst (Copilot 365)</strong> :
+                analyse des données brutes et génère des rapports visuels.
+              </span>
+            </li>
+          </ul>
+          <p class="slide-note">
+            Selon McKinsey (2024), environ <strong>1 entreprise sur 4</strong> utilise déjà
+            ce type d’outils pour des activités d’analyse.
+          </p>
+        </div>
+        <div class="slide-visual">
+          <div class="box">
+            <div class="box-title">Chiffres & impact</div>
+            <div class="mini-grid">
+              <div class="mini-card">
+                <div class="mini-label">Adoption</div>
+                <div class="mini-main">≈ 25&nbsp;%</div>
+                <div class="mini-sub">des entreprises utilisent des outils génératifs pour l’analyse.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Productivité</div>
+                <div class="mini-main">+50–60&nbsp;%</div>
+                <div class="mini-sub">de vitesse sur le code avec GitHub Copilot.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Plateformes</div>
+                <div class="mini-main">3 acteurs clés</div>
+                <div class="mini-sub">Databricks, Google Cloud, Microsoft.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Contexte</div>
+                <div class="mini-main">Pas un gadget</div>
+                <div class="mini-sub">les agents sont déjà dans les outils quotidiens.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 – COMMENT ÇA FONCTIONNE -->
+      <section class="slide" data-index="2">
+        <div>
+          <div class="slide-kicker">02</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Comment ça fonctionne concrètement&nbsp;?
+          </div>
+          <p class="slide-main-text">
+            Les entreprises mettent en place des <strong>workflows “agentiques”</strong> :
+            l’agent gère tout un enchaînement de tâches.
+          </p>
+          <p style="font-size:13px; margin-bottom:8px;">
+            Exemple Databricks&nbsp;: le data scientist écrit simplement&nbsp;:
+          </p>
+          <p style="font-size:13px; font-style:italic; margin-left:4px; margin-bottom:10px;">
+            «&nbsp;Analyse les tickets de support du dernier trimestre et prévois
+            les volumes pour les six prochains mois.&nbsp;»
+          </p>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span><span>L’agent se connecte à la base.</span></li>
+            <li><span class="bullet-dot"></span><span>Explore les colonnes, calcule les stats.</span></li>
+            <li><span class="bullet-dot"></span><span>Entraîne un modèle de prévision.</span></li>
+            <li><span class="bullet-dot"></span><span>Compare les résultats et génère un rapport.</span></li>
+          </ul>
+          <p class="slide-note">
+            Le data scientist ne disparaît pas&nbsp;: il <strong>valide, interprète, corrige</strong>.
+            On ne code plus tout, on <strong>orchestre les agents</strong>.
+          </p>
+        </div>
+        <div class="slide-visual">
+          <div class="box">
+            <div class="box-title">Le nouveau rôle</div>
+            <p style="margin-bottom:6px;">
+              On passe d’un métier de <strong>“data scientist exécutant”</strong>
+              à un rôle de <strong>“data scientist superviseur”</strong>.
+            </p>
+            <div class="pill-row">
+              <span class="pill pill--accent">Formuler le problème</span>
+              <span class="pill">Configurer l’agent</span>
+              <span class="pill">Vérifier les outputs</span>
+              <span class="pill">Donner du sens métier</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+            <!-- SLIDE 2B – ARCHITECTURE D’UN AGENT IA -->
+      <section class="slide" data-index="2b">
+        <div>
+          <div class="slide-kicker">02 bis</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Fonctionnement d’agents IA pour l’analyse de données
+          </div>
+          <p class="slide-main-text">
+            Voici comment un agent IA orchestre la chaîne complète d’analyse de données.
+          </p>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span><span><strong>1.</strong> L’utilisateur pose une question.</span></li>
+            <li><span class="bullet-dot"></span><span><strong>2.</strong> L’Agent Core planifie la tâche à exécuter.</span></li>
+            <li><span class="bullet-dot"></span><span><strong>3.</strong> Le Planning Module choisit les sous-agents nécessaires (code, calcul, visualisation…).</span></li>
+            <li><span class="bullet-dot"></span><span><strong>4.</strong> Les sous-agents accèdent aux bases, exécutent le code et génèrent des résultats.</span></li>
+            <li><span class="bullet-dot"></span><span><strong>5.</strong> Le résultat final est consolidé et renvoyé à l’utilisateur.</span></li>
+          </ul>
+          <p class="slide-note">
+            Cette architecture illustre un agent IA “chef d’orchestre” capable d’automatiser une analyse complète tout en gardant un contrôle humain.
+          </p>
+        </div>
+        <div class="slide-visual" style="display: flex; align-items: center; justify-content: center;">
+          <img
+            src="assets/1736329953175.png"
+            alt="AI Agents for Data Analysis"
+            style="
+              max-width: 100%;
+              max-height: 95%;
+              border-radius: 18px;
+              border: 1px solid rgba(75, 85, 99, 0.6);
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+              object-fit: contain;
+              background: rgba(2, 6, 23, 0.95);
+            "
+          />
+        </div>
+      </section>
+
+
+      <!-- SLIDE 3 – EFFETS MESURÉS -->
+      <section class="slide" data-index="3">
+        <div>
+          <div class="slide-kicker">03</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Quels effets on observe&nbsp;?
+          </div>
+          <p class="slide-main-text">
+            Les études convergent&nbsp;: les agents IA ont un impact réel
+            sur la <strong>productivité</strong>, la <strong>qualité</strong> et
+            les <strong>compétences clés</strong>.
+          </p>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>Productivité</strong> : +15 à +30&nbsp;% sur les tâches standard de data science.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>Qualité</strong> : code plus standardisé, moins d’erreurs “basiques”.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                <strong>Compétences</strong> : la vraie valeur, c’est de formuler
+                des demandes claires, évaluer les résultats et garantir
+                la fiabilité du process.
+              </span>
+            </li>
+          </ul>
+          <p class="slide-note">
+            Le data scientist ne se définit plus seulement par sa capacité à coder,
+            mais par sa capacité à <strong>diriger et fiabiliser</strong> le travail de l’IA.
+          </p>
+        </div>
+        <div class="slide-visual">
+          <div class="mini-grid">
+            <div class="mini-card">
+              <div class="mini-label">Productivité</div>
+              <div class="metric">+15–30&nbsp;%</div>
+              <div class="metric-label">Tâches standard data science</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Code</div>
+              <div class="mini-main">Plus clean</div>
+              <div class="mini-sub">Moins d’erreurs triviales, plus de standardisation.</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Focalisation</div>
+              <div class="mini-main">Analyse & sens</div>
+              <div class="mini-sub">Plus de temps sur l’interprétation et les décisions.</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-label">Compétences</div>
+              <div class="mini-main">Supervision IA</div>
+              <div class="mini-sub">Contrôle, validation, explication aux métiers.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4 – LIMITES -->
+      <section class="slide" data-index="4">
+        <div>
+          <div class="slide-kicker">04</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Les limites & les zones grises
+          </div>
+          <p class="slide-main-text">
+            Tout n’est pas réglé, loin de là. La littérature souligne plusieurs
+            <strong>angles morts</strong>.
+          </p>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span>Peu d’études mesurent la <strong>qualité réelle</strong> des analyses faites par les agents.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                Sécurité & <strong>confidentialité des données</strong> :
+                beaucoup de questions, surtout en cloud.
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                Impact humain encore mal connu&nbsp;:
+                motivation&nbsp;? dépendance&nbsp;? perte ou gain d’expertise&nbsp;?
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                La plupart des retours viennent des grandes techs,
+                très peu des <strong>PME françaises</strong>.
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="slide-visual">
+          <div class="box">
+            <div class="box-title">Questions ouvertes</div>
+            <p style="margin-bottom:6px;">
+              Ce sont justement ces “trous dans la raquette” qui font naître
+              des sujets de recherche intéressants.
+            </p>
+            <div class="pill-row">
+              <span class="pill pill--accent">Qualité des analyses</span>
+              <span class="pill">Sécurité & RGPD</span>
+              <span class="pill">Impact psychologique</span>
+              <span class="pill">Contexte PME</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5 – SUITE RECHERCHE -->
+      <section class="slide" data-index="5">
+        <div>
+          <div class="slide-kicker">05</div>
+          <div class="slide-title">
+            <span class="slide-icon"></span>
+            Et maintenant, on fait quoi avec ça&nbsp;?
+          </div>
+          <p class="slide-main-text">
+            Pour la suite du projet, l’idée est de transformer ces constats
+            en <strong>axes de recherche</strong> concrets.
+          </p>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                Comment les <strong>compétences</strong> des data scientists
+                évoluent-elles avec ces nouveaux outils&nbsp;?
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                Comment mesurer la <strong>fiabilité</strong> et la qualité
+                des analyses produites par un agent&nbsp;?
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                Quelle <strong>gouvernance</strong> mettre en place pour garder
+                le contrôle humain&nbsp;?
+              </span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span>
+                Est-ce que ces agents peuvent vraiment être utiles dans les <strong>PME</strong>,
+                sans créer plus de risques que de bénéfices&nbsp;?
+              </span>
+            </li>
+          </ul>
+
+        </div>
+        <div class="slide-visual">
+          <div class="box">
+            <div class="box-title">Message de fin</div>
+            <p>
+              Les agents IA ne remplacent pas les data scientists. Ils
+              <strong>redéfinissent</strong> leur métier. La vraie différence se fera
+              dans les organisations qui sauront <strong>piloter</strong> cette
+              transition&nbsp;: gouvernance, formation, et collaboration humain&nbsp;+&nbsp;IA.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-nav">
+      <div class="buttons">
+        <button class="btn" id="prevBtn">
+          ← Précédent
+        </button>
+        <button class="btn" id="nextBtn">
+          Suivant →
+        </button>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const dotsContainer = document.getElementById("dots");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let current = 0;
+
+    // Crée les petits points de progression
+    slides.forEach((_, idx) => {
+      const d = document.createElement("div");
+      d.className = "dot" + (idx === 0 ? " active" : "");
+      d.dataset.index = idx;
+      dotsContainer.appendChild(d);
+    });
+
+    const dots = Array.from(document.querySelectorAll(".dot"));
+
+    function updateNavButtons() {
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === current);
+      });
+    }
+
+    function goToSlide(index, direction = 1) {
+      if (index < 0 || index >= slides.length || index === current) return;
+      const currentSlide = slides[current];
+      currentSlide.classList.remove("active");
+      currentSlide.classList.add(direction === 1 ? "slide-left" : "slide-right");
+      setTimeout(() => {
+        currentSlide.classList.remove("slide-left", "slide-right");
+      }, 350);
+
+      current = index;
+      const nextSlide = slides[current];
+      nextSlide.classList.add("active");
+      updateNavButtons();
+    }
+
+    prevBtn.addEventListener("click", () => goToSlide(current - 1, -1));
+    nextBtn.addEventListener("click", () => goToSlide(current + 1, 1));
+
+    // Navigation clavier
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") goToSlide(current + 1, 1);
+      if (e.key === "ArrowLeft") goToSlide(current - 1, -1);
+    });
+
+    // Clic sur les dots
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const idx = Number(dot.dataset.index);
+        goToSlide(idx, idx > current ? 1 : -1);
+      });
+    });
+
+    updateNavButtons();
+  </script>
+</body>
+</html>
+
     .app { height: 100vh; display: flex; flex-direction: column; padding: 16px; }
     header { display: flex; flex-direction: column; align-items: flex-start; padding: 6px 4px 12px; }
     .brand .badge {
@@ -85,11 +973,6 @@
   </style>
 </head>
 <body>
-<nav style="background:#111827;padding:10px;border-bottom:1px solid #1f2937;">
-  <a href="index.html" style="color:#3b82f6;text-decoration:none;margin-right:20px;">🏠 Accueil</a>
-  <a href="agents.html" style="color:#e5e7eb;text-decoration:none;">🤖 Agents IA</a>
-</nav>
-
   <div class="app">
     <header>
       <div class="brand">
